@@ -53,6 +53,9 @@ export default {
     title: {
       type: String,
     },
+    type: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -62,7 +65,6 @@ export default {
 
       name: '',
       description: '',
-      type: '1',
     }
   },
   methods: {

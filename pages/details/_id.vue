@@ -20,7 +20,7 @@
             <v-card-title>
               <div class="d-flex justify-space-between" style="width: 100%">
                 <p class="headline mb-1">TAREAS</p>
-                <TaskyNewSubTask />
+                <TaskyNewSubTask type="Tareas"></TaskyNewSubTask>
               </div>
             </v-card-title>
           </v-card>
@@ -52,7 +52,7 @@
             <v-card-title>
               <div class="d-flex justify-space-between" style="width: 100%">
                 <p class="headline mb-1">EN CURSO</p>
-                <TaskyNewSubTask />
+                <TaskyNewSubTask type="En curso"></TaskyNewSubTask>
               </div>
             </v-card-title>
           </v-card>
@@ -63,9 +63,10 @@
               class="my-tasks-container-card-title d-flex mb-2"
             >
               <v-btn class="mt-2" x-large color="#00897B">{{
-                subtasks_doing.mytask
+                subtasks_doing.name
               }}</v-btn>
               <v-btn
+                @click="onRemove(subtasks_doing._id)"
                 class="delete-button ml-2 mt-3"
                 color="#FF5252"
                 small
@@ -74,7 +75,7 @@
                 >X</v-btn
               >
               <TaskyEditSubTaskEnCurso
-                :title="subtasks_doing.mytask"
+                :title="subtasks_doing.name"
               ></TaskyEditSubTaskEnCurso>
             </div>
           </TaskyCard2>
@@ -85,7 +86,7 @@
             <v-card-title>
               <div class="d-flex justify-space-between" style="width: 100%">
                 <p class="headline mb-1">REALIZADAS</p>
-                <TaskyNewSubTask />
+                <TaskyNewSubTask type="Realizadas"></TaskyNewSubTask>
               </div>
             </v-card-title>
           </v-card>
@@ -96,9 +97,10 @@
               class="my-tasks-container-card-title d-flex mb-2"
             >
               <v-btn class="mt-2" x-large color="#00897B">{{
-                subtasks_done.mytask
+                subtasks_done.name
               }}</v-btn>
               <v-btn
+                @click="onRemove(subtasks_done._id)"
                 class="delete-button ml-2 mt-3"
                 color="#FF5252"
                 small
@@ -107,7 +109,7 @@
                 >X</v-btn
               >
               <TaskyEditSubTaskRealizadas
-                :title="subtasks_done.mytask"
+                :title="subtasks_done.name"
               ></TaskyEditSubTaskRealizadas>
             </div>
           </TaskyCard2>
@@ -173,17 +175,17 @@ export default {
         this.subtasks_done = []
 
         for (const subtask of data.usersubtasks) {
-            if (subtask.type === "Tareas") {
-                this.subtasks.push(subtask)
-            }
-            else if (subtask.type === "En curso") {
-               this.subtasks_doing.push(subtask)
-            }
-            else {this.subtasks_done.push(subtask)}
+          if (subtask.type === 'Tareas') {
+            this.subtasks.push(subtask)
+          } else if (subtask.type === 'En curso') {
+            this.subtasks_doing.push(subtask)
+          } else {
+            this.subtasks_done.push(subtask)
+          }
         }
-        console.log({subtask: this.subtasks})
-        console.log({subtasks_doing: this.subtasks_doing})
-        console.log({subtasks_done: this.subtasks_done})
+        console.log({ subtask: this.subtasks })
+        console.log({ subtasks_doing: this.subtasks_doing })
+        console.log({ subtasks_done: this.subtasks_done })
       } catch (err) {
         console.log(err.message)
       }
