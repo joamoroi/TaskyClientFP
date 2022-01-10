@@ -5,12 +5,14 @@
       <v-row>
         <v-col cols="3 offset-2">
           <v-card class="tasky-id-form-card">
-            <v-card-title class="d-flex justify-center" style="font-size: 25px"
-              >TAREAS DOMESTICAS DE CASA</v-card-title
+            <v-card-title
+              class="d-flex justify-center"
+              style="font-size: 25px"
+              >{{ taskName }}</v-card-title
             >
           </v-card>
         </v-col>
-        <!-- <TaskyEditTask title="TAREAS DOMESTICAS DE CASA"/> -->
+
         <img class="image-main-1" src="/images/taskyimage7.png" alt="" />
       </v-row>
 
@@ -130,10 +132,13 @@ export default {
       subtasks_doing: [],
 
       subtasks_done: [],
+
+      taskName: '',
     }
   },
 
   async mounted() {
+    await this.getTask()
     await this.loadsubTasks()
     this.onFetch = setInterval(async () => {
       await this.loadsubTasks()
@@ -206,6 +211,30 @@ export default {
         await this.loadsubTasks()
       } catch (err) {
         console.log(err.message)
+      }
+    },
+    async getTask() {
+      try {
+        const taskId = this.$route.params.id
+
+        const res = await fetch(
+          `http://localhost:4500/api/task/onetask/${taskId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+
+        const data = await res.json()
+        console.log({ data })
+        if (data.err) {
+          alert(data.err)
+        }
+        this.taskName = data.onetask.name
+      } catch (err) {
+        alert(err.message)
       }
     },
   },

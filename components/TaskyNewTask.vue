@@ -55,13 +55,16 @@ export default {
       type: String,
     },
     color: { type: String, default: '#689F38' },
+    type: {
+      type: String,
+    },
   },
 
   data() {
     return {
       image: undefined,
       name: '',
-      type: 'personal',
+      // type: 'personal',
     }
   },
 
@@ -97,6 +100,7 @@ export default {
         if (data.err) {
           alert(data.err)
         }
+        window.localStorage.setItem('taskName', data.task.name)
         this.$router.push(`/my-area/${data.task.userId}`)
       } catch (err) {
         alert(err.message)

@@ -56,6 +56,9 @@ export default {
     type: {
       type: String,
     },
+    task_name: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -73,16 +76,15 @@ export default {
         alert('Campos incompletos')
         return
       }
-
-      const userId = localStorage.getItem('userId')
+      const taskId = this.$route.params.id
 
       const body = JSON.stringify({
         name: this.name,
         description: this.description,
-        userId: userId,
+        taskId: taskId,
         type: this.type,
       })
-      
+
       const token = localStorage.getItem('token')
 
       try {
@@ -94,9 +96,9 @@ export default {
           },
           body,
         })
-console.log(body)
+
         const data = await res.json()
-        console.log({ data })
+        // console.log({ data })
         if (data.err) {
           alert(data.err)
         }

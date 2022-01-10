@@ -11,6 +11,7 @@
                 <TaskyNewTask
                   title="Nuevo Espacio Personal"
                   name_task="Añade Nuevo Espacio Personal"
+                  type="personal"
                 ></TaskyNewTask>
               </div>
               <div class="tasky-my-area-buttons d-flex justify-center">
@@ -18,6 +19,7 @@
                   title="Nuevo Espacio Profesional"
                   color="#1B5E20"
                   name_task="Añade Nuevo Espacio Profesional"
+                  type="profesional"
                 ></TaskyNewTask>
               </div>
             </TaskyCard>
@@ -45,7 +47,9 @@
                             d-flex
                           "
                           @click="onClick(task._id)"
-                          :color="task.type === 'personal' ? '#689F38' : '#1B5E20'"
+                          :color="
+                            task.type === 'personal' ? '#689F38' : '#1B5E20'
+                          "
                           x-large
                           >{{ task.name }}</v-btn
                         >
