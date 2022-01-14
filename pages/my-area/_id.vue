@@ -46,13 +46,14 @@
                             mt-2
                             d-flex
                           "
-                          @click="onClick(task._id)"
+                          @click="onClick(task._id, task.name)" 
                           :color="
                             task.type === 'personal' ? '#689F38' : '#1B5E20'
                           "
                           x-large
                           >{{ task.name }}</v-btn
-                        >
+                        > 
+                        <!-- el task.name del onClick es otra forma de pasarle el nombre de la tarea para recogerla -->
                       </div>
                       <div
                         class="
@@ -70,7 +71,8 @@
                           fab
                           >X</v-btn
                         >
-                        <TaskyEditTask :title="task.name"></TaskyEditTask>
+                        <TaskyEditTask :title="task.name" :taskId="task._id"></TaskyEditTask> 
+                        <!-- le paso el task._id aqui y como prop en el componente para recoger el id de la tarea y poder hacer el update -->
                       </div>
                     </v-card>
                   </v-col>
@@ -113,7 +115,7 @@ export default {
           userId: userId,
         }
 
-        const res = await fetch('http://localhost:4500/api/task/usertasks', {
+        const res = await fetch('http://localhost:4500/api/task/usertasks/', {
           method: 'post',
           headers: {
             'Content-Type': 'application/json',
@@ -136,8 +138,9 @@ export default {
         console.log(err.message)
       }
     },
-    onClick(taskId) {
-      this.$router.push(`/details/${taskId}`)
+    onClick(taskId, taskName) {
+      this.$router.push(`/details/${taskId}?taskName=${taskName}`) 
+      // se puede pasar como query el nombre aqui para pintarlo luego en las pagina de las subtareas
     },
     async onRemove(taskId) {
       try {

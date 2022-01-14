@@ -139,6 +139,9 @@ export default {
 
   async mounted() {
     await this.getTask()
+    // otra forma de pintar el nombre de la tarea
+    // this.$route.query.taskName
+    // console.log({taskName: this.$route.query.taskName})
     await this.loadsubTasks()
     this.onFetch = setInterval(async () => {
       await this.loadsubTasks()
@@ -152,10 +155,10 @@ export default {
   methods: {
     async loadsubTasks() {
       try {
-        const userId = localStorage.getItem('userId')
-
+        
+        const taskId = this.$route.params.id
         const body = {
-          userId: userId,
+          taskId: taskId,
         }
 
         const res = await fetch(
