@@ -72,22 +72,22 @@ export default {
   },
   methods: {
     async onSubmit() {
-      if (!this.name || !this.description) {
-        alert('Campos incompletos')
-        return
-      }
-      const taskId = this.$route.params.id
-
-      const body = JSON.stringify({
-        name: this.name,
-        description: this.description,
-        taskId: taskId,
-        type: this.type,
-      })
-
-      const token = localStorage.getItem('token')
-
       try {
+        if (!this.name || !this.description) {
+          alert('Campos incompletos')
+          return
+        }
+        const taskId = this.$route.params.id
+
+        const body = JSON.stringify({
+          name: this.name,
+          description: this.description,
+          taskId: taskId,
+          type: this.type,
+        })
+
+        const token = localStorage.getItem('token')
+
         const res = await fetch('http://localhost:4500/api/subtask/create', {
           method: 'POST',
           headers: {
@@ -98,7 +98,7 @@ export default {
         })
 
         const data = await res.json()
-        // console.log({ data })
+        
         if (data.err) {
           alert(data.err)
         }

@@ -17,9 +17,9 @@
                 </v-card-title>
                     <v-card-text>
                         <p class="tasky-modal-card-text mt-5">Nombre:</p>
-                        <v-text-field placeholder="Nuevo Nombre" outlined></v-text-field>
+                        <v-text-field v-model="name" placeholder="Nuevo Nombre" outlined></v-text-field>
                         <p class="tasky-modal-card-text mt-2">Descripción:</p>
-                        <v-textarea placeholder="Descripción" outlined height="75px"></v-textarea>
+                        <v-textarea v-model="description" placeholder="Descripción" outlined height="75px"></v-textarea>
                         <p class="tasky-modal-card-text mt-2">Fecha vencimiento:</p>
                         <TaskyCalendar />
                         <TaskyMoveSubTaskEnCurso />
@@ -48,6 +48,8 @@ export default {
     data () {
       return {
         picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        name: '',
+        description: '',
       }
     },
 }

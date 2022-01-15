@@ -11,10 +11,12 @@
       >
         <p class="tasky-app-bar-title my-1 pl-2">TASKY</p>
         <v-spacer></v-spacer>
-        <v-btn to="/my-area" color="#1DE9B6" class="my-2 mx-4"
+        <v-btn @click="goBack" color="#1DE9B6" class="my-2 mx-4"
           >Mis Espacios</v-btn
         >
-        <v-btn @click="logout" color="#1DE9B6" class="my-2">Cerrar Sesión</v-btn>
+        <v-btn @click="logout" color="#1DE9B6" class="my-2"
+          >Cerrar Sesión</v-btn
+        >
       </div>
       <div
         v-else-if="header"
@@ -22,7 +24,9 @@
         style="width: 100%"
       >
         <p class="tasky-app-bar-title my-1 pl-2">TASKY</p>
-        <v-btn @click="logout" color="#1DE9B6" class="my-2">Cerrar Sesión</v-btn>
+        <v-btn @click="logout" color="#1DE9B6" class="my-2"
+          >Cerrar Sesión</v-btn
+        >
       </div>
       <div
         v-else-if="back"
@@ -59,6 +63,10 @@ export default {
     logout() {
       this.$store.dispatch('user/removeToken')
       this.$router.push('/home')
+    },
+    goBack() {
+      const userId = localStorage.getItem('userId')
+      this.$router.push(`/my-area/${userId}`)
     },
   },
 }

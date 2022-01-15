@@ -70,23 +70,28 @@ export default {
 
   methods: {
     async onSubmit() {
-      if (!this.image || !this.name) {
-        alert('Campos incompletos')
-        return
-      }
-
-      const userId = localStorage.getItem('userId')
-
-      const formData = new FormData()
-      formData.enctype = 'multipart/form-data'
-      formData.append('image', this.image)
-      formData.append('name', this.name)
-      formData.append('type', this.type)
-      formData.append('userId', userId)
-
-      const token = localStorage.getItem('token')
-
       try {
+        if (!this.image || !this.name) {
+          alert('Campos incompletos')
+          return
+        }
+        
+        // if (!token) {
+        //   alert('No existe el token, no has iniciado sesión')
+        //   this.$router.push('/sign-in')
+        //   return
+        // }
+        const userId = localStorage.getItem('userId')
+
+        const formData = new FormData()
+        formData.enctype = 'multipart/form-data'
+        formData.append('image', this.image)
+        formData.append('name', this.name)
+        formData.append('type', this.type)
+        formData.append('userId', userId)
+
+        const token = localStorage.getItem('token')
+
         const res = await fetch('http://localhost:4500/api/task/create', {
           method: 'POST',
           headers: {
