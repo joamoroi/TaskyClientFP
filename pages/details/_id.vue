@@ -44,7 +44,7 @@
                 style="font-size: 20px"
                 >X</v-btn
               >
-              <TaskyEditSubTask :title="subtask.name"></TaskyEditSubTask>
+              <TaskyEditSubTask :title="subtask.name" :subtaskId="subtask._id"></TaskyEditSubTask>
             </div>
           </TaskyCard2>
         </v-col>
@@ -78,6 +78,7 @@
               >
               <TaskyEditSubTaskEnCurso
                 :title="subtasks_doing.name"
+                :subtaskId="subtasks_doing._id"
               ></TaskyEditSubTaskEnCurso>
             </div>
           </TaskyCard2>
@@ -112,6 +113,7 @@
               >
               <TaskyEditSubTaskRealizadas
                 :title="subtasks_done.name"
+                :subtaskId="subtasks_done._id"
               ></TaskyEditSubTaskRealizadas>
             </div>
           </TaskyCard2>
@@ -191,9 +193,9 @@ export default {
             this.subtasks_done.push(subtask)
           }
         }
-        console.log({ subtask: this.subtasks })
-        console.log({ subtasks_doing: this.subtasks_doing })
-        console.log({ subtasks_done: this.subtasks_done })
+        // console.log({ subtask: this.subtasks })
+        // console.log({ subtasks_doing: this.subtasks_doing })
+        // console.log({ subtasks_done: this.subtasks_done })
       } catch (err) {
         console.log(err.message)
       }
@@ -231,7 +233,7 @@ export default {
         )
 
         const data = await res.json()
-        console.log({ data })
+        // console.log({ data })
         if (data.err) {
           alert(data.err)
         }
