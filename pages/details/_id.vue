@@ -31,10 +31,14 @@
               v-for="subtask in subtasks"
               :key="subtask.id"
               class="my-tasks-container-card-title d-flex mb-2"
-            >
-              <v-btn class="mt-2" x-large color="#00897B">{{
+            ><TaskyShowSubtasksDetails
+                :name_subtask="subtask.name"
+                :description="subtask.description"
+              ></TaskyShowSubtasksDetails>
+
+              <!-- <v-btn class="mt-2" x-large color="#00897B">{{
                 subtask.name
-              }}</v-btn>
+              }}</v-btn> -->
               <v-btn
                 @click="onRemove(subtask._id)"
                 class="delete-button ml-2 mt-3"
@@ -44,7 +48,10 @@
                 style="font-size: 20px"
                 >X</v-btn
               >
-              <TaskyEditSubTask :title="subtask.name" :subtaskId="subtask._id"></TaskyEditSubTask>
+              <TaskyEditSubTask
+                :title="subtask.name"
+                :subtaskId="subtask._id"
+              ></TaskyEditSubTask>
             </div>
           </TaskyCard2>
         </v-col>
@@ -141,7 +148,7 @@ export default {
 
   async mounted() {
     await this.getTask()
-    // otra forma de pintar el nombre de la tarea
+    // otra forma de pintar el nombre de la tarea:
     // this.$route.query.taskName
     // console.log({taskName: this.$route.query.taskName})
     await this.loadsubTasks()
@@ -157,10 +164,11 @@ export default {
   methods: {
     async loadsubTasks() {
       try {
-        
         const taskId = this.$route.params.id
+        const userId = localStorage.getItem('userId')
         const body = {
           taskId: taskId,
+          userId: userId,
         }
 
         const res = await fetch(
