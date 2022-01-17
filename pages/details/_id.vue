@@ -31,14 +31,11 @@
               v-for="subtask in subtasks"
               :key="subtask.id"
               class="my-tasks-container-card-title d-flex mb-2"
-            ><TaskyShowSubtasksDetails
+            >
+              <TaskyShowSubtasksDetails
                 :name_subtask="subtask.name"
                 :description="subtask.description"
               ></TaskyShowSubtasksDetails>
-
-              <!-- <v-btn class="mt-2" x-large color="#00897B">{{
-                subtask.name
-              }}</v-btn> -->
               <v-btn
                 @click="onRemove(subtask._id)"
                 class="delete-button ml-2 mt-3"
@@ -51,6 +48,7 @@
               <TaskyEditSubTask
                 :title="subtask.name"
                 :subtaskId="subtask._id"
+                :type="subtask.type"
               ></TaskyEditSubTask>
             </div>
           </TaskyCard2>
@@ -71,9 +69,10 @@
               :key="subtasks_doing.id"
               class="my-tasks-container-card-title d-flex mb-2"
             >
-              <v-btn class="mt-2" x-large color="#00897B">{{
-                subtasks_doing.name
-              }}</v-btn>
+              <TaskyShowSubtasksDetails
+                :name_subtask="subtasks_doing.name"
+                :description="subtasks_doing.description"
+              ></TaskyShowSubtasksDetails>
               <v-btn
                 @click="onRemove(subtasks_doing._id)"
                 class="delete-button ml-2 mt-3"
@@ -86,6 +85,7 @@
               <TaskyEditSubTaskEnCurso
                 :title="subtasks_doing.name"
                 :subtaskId="subtasks_doing._id"
+                :type="subtasks_doing.type"
               ></TaskyEditSubTaskEnCurso>
             </div>
           </TaskyCard2>
@@ -105,10 +105,10 @@
               v-for="subtasks_done in subtasks_done"
               :key="subtasks_done.id"
               class="my-tasks-container-card-title d-flex mb-2"
-            >
-              <v-btn class="mt-2" x-large color="#00897B">{{
-                subtasks_done.name
-              }}</v-btn>
+            ><TaskyShowSubtasksDetails
+                :name_subtask="subtasks_done.name"
+                :description="subtasks_done.description"
+              ></TaskyShowSubtasksDetails>
               <v-btn
                 @click="onRemove(subtasks_done._id)"
                 class="delete-button ml-2 mt-3"
@@ -121,6 +121,7 @@
               <TaskyEditSubTaskRealizadas
                 :title="subtasks_done.name"
                 :subtaskId="subtasks_done._id"
+                :type="subtasks_done.type"
               ></TaskyEditSubTaskRealizadas>
             </div>
           </TaskyCard2>

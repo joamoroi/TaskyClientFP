@@ -36,7 +36,16 @@
           ></v-textarea>
           <p class="tasky-modal-card-text mt-2">Fecha vencimiento:</p>
           <TaskyCalendar />
-          <TaskyMoveSubTask />
+          <p class="tasky-modal-card-text mt-1">Mover a:</p>
+          <v-select
+            :items="items"
+            :label="type"
+            solo
+            background-color="#00897B"
+            item-text="tipo"
+            item-value="tipo"
+            @change="onChange"
+          ></v-select>
         </v-card-text>
         <div class="d-flex justify-center mt-n3">
           <v-btn
@@ -64,6 +73,9 @@ export default {
     subtaskId: {
       type: String,
     },
+    type: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -72,8 +84,16 @@ export default {
         .substr(0, 10),
       name: '',
       description: '',
+      newtype: '',
+      items: [{ tipo: 'Tareas' }, { tipo: 'En curso' }, { tipo: 'Realizadas' }],
     }
   },
+
+  beforemount() {
+    this.newtype = type
+    console.log(this.newtype)
+  },
+
   methods: {
     async onUpdateSubtask() {
       try {
@@ -85,18 +105,27 @@ export default {
         const body = JSON.stringify({
           name: this.name,
           description: this.description,
+          type: this.newtype,
         })
-        
-        await fetch(`http://localhost:4500/api/subtask/update/${this.subtaskId}`, {
-          method: 'put',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body,
-        })
+
+        await fetch(
+          `http://localhost:4500/api/subtask/update/${this.subtaskId}`,
+          {
+            method: 'put',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body,
+          }
+        )
       } catch (err) {
         console.log(err.message)
       }
+    },
+
+    onChange(v) {
+      this.newtype = v
+      console.log(v)
     },
   },
 }
