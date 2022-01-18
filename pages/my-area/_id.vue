@@ -1,5 +1,5 @@
 <template>
-  <div class="tasky-my-area">
+  <div class="tasky-my-area" v-if="token">
     <TaskyAppBar :header="true"></TaskyAppBar>
     <v-container>
       <v-row>
@@ -46,13 +46,13 @@
                             mt-2
                             d-flex
                           "
-                          @click="onClick(task._id, task.name)" 
+                          @click="onClick(task._id, task.name)"
                           :color="
                             task.type === 'personal' ? '#689F38' : '#1B5E20'
                           "
                           x-large
                           >{{ task.name }}</v-btn
-                        > 
+                        >
                         <!-- el task.name del onClick es otra forma de pasarle el nombre de la tarea para recogerla -->
                       </div>
                       <div
@@ -71,7 +71,10 @@
                           fab
                           >X</v-btn
                         >
-                        <TaskyEditTask :title="task.name" :taskId="task._id"></TaskyEditTask> 
+                        <TaskyEditTask
+                          :title="task.name"
+                          :taskId="task._id"
+                        ></TaskyEditTask>
                         <!-- le paso el task._id aqui y como prop en el componente para recoger el id de la tarea y poder hacer el update -->
                       </div>
                     </v-card>
@@ -84,6 +87,16 @@
       </v-row>
     </v-container>
   </div>
+  <div v-else>
+    <div class="loader text-center">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="green"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -92,6 +105,16 @@ export default {
     return {
       tasks: [],
       onFetch: undefined,
+      token: undefined,
+    }
+  },
+
+  beforeMount() {
+    this.token = localStorage.getItem('token')
+
+    if (!this.token) {
+      this.$router.push('/home')
+      return
     }
   },
 
@@ -139,7 +162,7 @@ export default {
       }
     },
     onClick(taskId, taskName) {
-      this.$router.push(`/details/${taskId}?taskName=${taskName}`) 
+      this.$router.push(`/details/${taskId}?taskName=${taskName}`)
       // se puede pasar como query el nombre aqui para pintarlo luego en las pagina de las subtareas
     },
     async onRemove(taskId) {
@@ -189,5 +212,9 @@ export default {
 
 .delete-button {
   font-size: 20px;
+}
+
+.loader {
+  margin-top: 325px;
 }
 </style>

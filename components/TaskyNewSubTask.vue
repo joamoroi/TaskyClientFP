@@ -35,7 +35,7 @@
           <TaskyCalendar />
         </v-card-text>
         <div class="d-flex justify-center mt-n3">
-          <v-btn class="buttons" color="#1DE9B6" large @click="onSubmit"
+          <v-btn class="buttons" color="#1DE9B6" large @click="onSubmit(dialog)"
             >Añadir</v-btn
           >
         </div>
@@ -70,8 +70,9 @@ export default {
       description: '',
     }
   },
+
   methods: {
-    async onSubmit() {
+    async onSubmit(dialog) {
       try {
         if (!this.name || !this.description) {
           alert('Campos incompletos')
@@ -98,10 +99,16 @@ export default {
         })
 
         const data = await res.json()
-        
+
         if (data.err) {
           alert(data.err)
         }
+        //Limpiar modal
+        this.name = ''
+        this.description = ''
+
+        //cerrar modal al darle añadir pasandole dialog a la funcion
+        dialog.value = false
       } catch (err) {
         alert(err.message)
       }

@@ -33,7 +33,7 @@
           ></v-file-input>
         </v-card-text>
         <div class="d-flex justify-center mt-n3">
-          <v-btn class="buttons" color="#1DE9B6" large @click="onSubmit"
+          <v-btn class="buttons" color="#1DE9B6" large @click="onSubmit(dialog)"
             >Crear</v-btn
           >
         </div>
@@ -64,23 +64,17 @@ export default {
     return {
       image: undefined,
       name: '',
-      // type: 'personal',
     }
   },
 
   methods: {
-    async onSubmit() {
+    async onSubmit(dialog) {
       try {
         if (!this.image || !this.name) {
           alert('Campos incompletos')
           return
         }
-        
-        // if (!token) {
-        //   alert('No existe el token, no has iniciado sesión')
-        //   this.$router.push('/sign-in')
-        //   return
-        // }
+
         const userId = localStorage.getItem('userId')
 
         const formData = new FormData()
@@ -105,8 +99,13 @@ export default {
         if (data.err) {
           alert(data.err)
         }
-        // window.localStorage.setItem('taskName', data.task.name)
-        this.$router.push(`/my-area/${data.task.userId}`)
+
+        //Limpiar modal
+        this.name = ''
+        this.image = undefined
+
+        //cerrar modal al darle añadir pasandole dialog a la funcion
+        dialog.value = false
       } catch (err) {
         alert(err.message)
       }

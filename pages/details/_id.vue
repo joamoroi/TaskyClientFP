@@ -1,5 +1,5 @@
 <template>
-  <div class="tasky-id">
+  <div class="tasky-id" v-if="token">
     <TaskyAppBar :remove="true" :header="true"></TaskyAppBar>
     <v-container>
       <v-row>
@@ -105,7 +105,8 @@
               v-for="subtasks_done in subtasks_done"
               :key="subtasks_done.id"
               class="my-tasks-container-card-title d-flex mb-2"
-            ><TaskyShowSubtasksDetails
+            >
+              <TaskyShowSubtasksDetails
                 :name_subtask="subtasks_done.name"
                 :description="subtasks_done.description"
               ></TaskyShowSubtasksDetails>
@@ -129,6 +130,16 @@
       </v-row>
     </v-container>
   </div>
+  <div v-else>
+    <div class="loader text-center">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="green"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -144,6 +155,16 @@ export default {
       subtasks_done: [],
 
       taskName: '',
+      token: undefined,
+    }
+  },
+
+  beforeMount() {
+    this.token = localStorage.getItem('token')
+
+    if (!this.token) {
+      this.$router.push('/home')
+      return
     }
   },
 
@@ -298,5 +319,9 @@ export default {
 
 .container-tasks {
   margin-top: 75px;
+}
+
+.loader {
+  margin-top: 325px;
 }
 </style>
