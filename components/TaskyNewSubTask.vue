@@ -32,7 +32,7 @@
             height="75px"
           ></v-textarea>
           <p class="tasky-modal-card-text mt-2">Fecha vencimiento:</p>
-          <TaskyCalendar />
+          <TaskyCalendar></TaskyCalendar>
         </v-card-text>
         <div class="d-flex justify-center mt-n3">
           <v-btn class="buttons" color="#1DE9B6" large @click="onSubmit(dialog)"
@@ -62,16 +62,16 @@ export default {
   },
   data() {
     return {
-      picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
-
       name: '',
       description: '',
     }
   },
 
   methods: {
+    receiveDate(e) {
+      this.date(e)
+    },
+
     async onSubmit(dialog) {
       try {
         if (!this.name || !this.description) {
@@ -85,6 +85,7 @@ export default {
           description: this.description,
           taskId: taskId,
           type: this.type,
+          date: this.date,
         })
 
         const token = localStorage.getItem('token')
@@ -99,6 +100,7 @@ export default {
         })
 
         const data = await res.json()
+        console.log(data)
 
         if (data.err) {
           alert(data.err)
