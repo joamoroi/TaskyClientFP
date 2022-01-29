@@ -32,7 +32,7 @@
             height="75px"
           ></v-textarea>
           <p class="tasky-modal-card-text mt-2">Fecha vencimiento:</p>
-          <TaskyCalendar></TaskyCalendar>
+          <TaskyCalendar :model.sync="date"></TaskyCalendar>
         </v-card-text>
         <div class="d-flex justify-center mt-n3">
           <v-btn class="buttons" color="#1DE9B6" large @click="onSubmit(dialog)"
@@ -62,16 +62,13 @@ export default {
   },
   data() {
     return {
+      date: '',
       name: '',
       description: '',
     }
   },
 
   methods: {
-    receiveDate(e) {
-      this.date(e)
-    },
-
     async onSubmit(dialog) {
       try {
         if (!this.name || !this.description) {
@@ -79,7 +76,7 @@ export default {
           return
         }
         const taskId = this.$route.params.id
-
+        
         const body = JSON.stringify({
           name: this.name,
           description: this.description,

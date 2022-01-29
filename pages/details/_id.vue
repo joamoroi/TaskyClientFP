@@ -33,6 +33,7 @@
               class="my-tasks-container-card-title d-flex mb-2"
             >
               <TaskyShowSubtasksDetails
+                :date_subtask="subtask.date"
                 :name_subtask="subtask.name"
                 :description="subtask.description"
               ></TaskyShowSubtasksDetails>
@@ -70,6 +71,7 @@
               class="my-tasks-container-card-title d-flex mb-2"
             >
               <TaskyShowSubtasksDetails
+                :date_subtask="subtasks_doing.date"
                 :name_subtask="subtasks_doing.name"
                 :description="subtasks_doing.description"
               ></TaskyShowSubtasksDetails>
@@ -107,6 +109,7 @@
               class="my-tasks-container-card-title d-flex mb-2"
             >
               <TaskyShowSubtasksDetails
+                :date_subtask_realizadas="subtasks_done.date"
                 :name_subtask="subtasks_done.name"
                 :description="subtasks_done.description"
               ></TaskyShowSubtasksDetails>

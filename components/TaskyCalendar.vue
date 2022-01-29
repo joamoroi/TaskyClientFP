@@ -23,6 +23,12 @@
 
 <script>
 export default {
+  props: {
+    model: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
@@ -30,6 +36,14 @@ export default {
         .substr(0, 10),
       menu2: false,
     }
+  },
+  beforeMount() {
+    this.$emit('update:model', this.date)
+  },
+  watch: {
+    date(value) {
+      this.$emit('update:model', value)
+    },
   },
 }
 </script>

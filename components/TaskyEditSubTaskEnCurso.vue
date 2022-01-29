@@ -35,7 +35,7 @@
             height="75px"
           ></v-textarea>
           <p class="tasky-modal-card-text mt-2">Fecha vencimiento:</p>
-          <TaskyCalendar />
+          <TaskyCalendar :model.sync="date"></TaskyCalendar>
           <p class="tasky-modal-card-text mt-1">Mover a:</p>
           <v-select
             :items="items"
@@ -49,7 +49,7 @@
         </v-card-text>
         <div class="d-flex justify-center mt-n3">
           <v-btn
-            @click="onUpdateSubtask()"
+            @click="onUpdateSubtask(dialog)"
             class="buttons"
             color="#1DE9B6"
             large
@@ -83,6 +83,7 @@ export default {
       name: '',
       description: '',
       newtype: '',
+      date: '',
       items: [{ tipo: 'Tareas' }, { tipo: 'En curso' }, { tipo: 'Realizadas' }],
     }
   },
@@ -93,7 +94,7 @@ export default {
   },
 
   methods: {
-    async onUpdateSubtask() {
+    async onUpdateSubtask(dialog) {
       try {
         if (!this.name || !this.description) {
           alert('Campos incompletos')
@@ -104,6 +105,7 @@ export default {
           name: this.name,
           description: this.description,
           type: this.newtype,
+          date: this.date,
         })
 
         await fetch(
@@ -116,6 +118,14 @@ export default {
             body,
           }
         )
+
+        //Limpiar modal
+        this.name = ''
+        this.description = ''
+
+        //cerrar modal al darle añadir pasandole dialog a la funcion
+        dialog.value = false
+
       } catch (err) {
         console.log(err.message)
       }
