@@ -11,7 +11,7 @@
                 <v-col cols="4">
                     <div class="tasky-description">
                         <p class="tasky-description-headline">Adéntrate en TASKY</p>
-                        <p class="tasky-description-text">Ya esta aquí TASKY. Regístrate e incia sesión para extraer todo su jugo. Logra llegar a tdoas tus metas con esta nueva agenda virtual. Gestiona todos tus quehacers del dia, semana, mes o año con esa nueva aplicación tan sencilla e intuitiva. TASKY te proporciona todas las herramientas para que alcances el éxito. Aprovecha para hacer más facil tu día a día y olvídate del resto.</p>
+                        <p class="tasky-description-text">Ya esta aquí TASKY. Regístrate e incia sesión para extraer todo su jugo. Logra llegar a tdoas tus metas con esta nueva agenda virtual. Gestiona todos tus quehaceres del dia, semana, mes o año con esa nueva aplicación tan sencilla e intuitiva. TASKY te proporciona todas las herramientas para que alcances el éxito. Aprovecha para hacer más facil tu día a día y olvídate del resto.</p>
                         <div class="tasky-description-buttons d-flex justify-center">
                             <v-btn to="/sign-up" class="mx-2" color="#1DE9B6" large>Registrarse</v-btn>
                             <v-btn to="/sign-in" class="mx-2" color="#1DE9B6" large>Iniciar Sesión</v-btn>
